@@ -4,14 +4,16 @@ using AutomapperIssue.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutomapperIssue.Migrations
 {
     [DbContext(typeof(AutomapperIssueDbContext))]
-    partial class AutomapperIssueDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191115103140_PartnersAdded")]
+    partial class PartnersAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -52,6 +52,21 @@ namespace AutomapperIssue.Users
             _logInManager = logInManager;
         }
 
+        public override async Task<PagedResultDto<UserDto>> GetAllAsync(PagedUserResultRequestDto input)
+        {
+            var query = CreateFilteredQuery(input);
+
+            query = query.PageBy(input.SkipCount, input.MaxResultCount);
+
+            query = ApplyPaging(query, input);
+
+            query = ApplySorting(query, input);
+
+            var result = await ObjectMapper.ProjectTo<UserDto>(query).ToListAsync();
+
+            return new PagedResultDto<UserDto>(result.Count, result);
+        }
+
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
         {
             CheckCreatePermission();
@@ -141,7 +156,7 @@ namespace AutomapperIssue.Users
 
         protected override IQueryable<User> CreateFilteredQuery(PagedUserResultRequestDto input)
         {
-            return Repository.GetAllIncluding(x => x.Roles)
+            return Repository.GetAllIncluding(x => x.Roles, x => x.Partner)
                 .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.UserName.Contains(input.Keyword) || x.Name.Contains(input.Keyword) || x.EmailAddress.Contains(input.Keyword))
                 .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive);
         }
