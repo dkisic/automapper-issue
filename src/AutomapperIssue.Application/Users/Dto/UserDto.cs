@@ -37,6 +37,8 @@ namespace AutomapperIssue.Users.Dto
 
         public string PartnerName { get; set; }
 
+        public string PartnerFullName { get; set; }
+
         public DateTime? LastLoginTime { get; set; }
 
         public DateTime CreationTime { get; set; }

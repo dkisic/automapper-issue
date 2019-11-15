@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutomapperIssue.Partners
 {
@@ -9,6 +10,7 @@ namespace AutomapperIssue.Partners
 
         public string Name { get; set; }
 
+        [NotMapped]
         public string FullName => $"{Code}-{Name}";
     }
 }
